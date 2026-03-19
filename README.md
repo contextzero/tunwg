@@ -14,17 +14,17 @@ tunwg --forward=http://localhost:8080
 ```
 You can run tunwg in docker too:
 ```bash
-docker run -it --rm --network=host -v tunwg_keys:/data ghcr.io/ntnj/tunwg tunwg --forward=http://localhost:8080
+docker run -it --rm --network=host -v tunwg_keys:/data ghcr.io/contextzero/tunwg tunwg --forward=http://localhost:8080
 ```
 `--network=host` is needed to access the port 8080 on host.
 
 ## Install
 
-You can download a pre-compiled binary from [Github releases](https://github.com/ntnj/tunwg/releases) for [Windows](https://github.com/ntnj/tunwg/releases/latest/download/tunwg.exe), [Linux](https://github.com/ntnj/tunwg/releases/latest/download/tunwg) and Mac ([Arm](https://github.com/ntnj/tunwg/releases/latest/download/tunwg-darwin-arm64)/[Intel](https://github.com/ntnj/tunwg/releases/latest/download/tunwg-darwin))
+You can download a pre-compiled binary from [Github releases](https://github.com/contextzero/tunwg/releases) for [Windows](https://github.com/contextzero/tunwg/releases/latest/download/tunwg.exe), [Linux](https://github.com/contextzero/tunwg/releases/latest/download/tunwg) and Mac ([Arm](https://github.com/contextzero/tunwg/releases/latest/download/tunwg-darwin-arm64)/[Intel](https://github.com/contextzero/tunwg/releases/latest/download/tunwg-darwin))
 
 To install from source:
 ```bash
-go install github.com/ntnj/tunwg/tunwg@latest
+go install github.com/contextzero/tunwg/tunwg@latest
 ```
 
 ## Privacy
@@ -44,7 +44,7 @@ To use your own domain name instead of a subdomain on tunwg.com, add a CNAME rec
 If you're writing your HTTP server in golang, you can use `tunwg` directly without running a separate binary.
 
 ```go
-import "github.com/ntnj/tunwg"
+import "github.com/contextzero/tunwg"
 
 listener, err := tunwg.NewListener("<name>")
 http.Serve(listener, httpHandler)
@@ -74,7 +74,7 @@ tunwg --forward=http://10.0.0.2:8000,http://10.0.0.10:9000
 This is especially useful when running `tunwg` with docker compose to expose the ports on other containers without making any modifications to those images. e.g. `docker-compose.yml`
 ```docker-compose.yml
   tunwg:
-    image: ghcr.io/ntnj/tunwg
+    image: ghcr.io/contextzero/tunwg
     command: tunwg --forward=http://whoami
 
   whoami:
@@ -105,14 +105,14 @@ Since anyone can run a server on `l.tunwg.com` domain, be careful when using coo
 The instance at `l.tunwg.com` runs on a VPS with very limited resources and may be bandwidth limited. For critical use cases, you can self-host your own tunwg server.
 
 ```bash
-go install github.com/ntnj/tunwg/tunwg@latest
+go install github.com/contextzero/tunwg/tunwg@latest
 TUNWG_RUN_SERVER=true TUNWG_API=example.com TUNWG_IP=<ip-of-server> TUNWG_PORT=<wireguard-port> tunwg
 ```
 
 With docker:
 ```docker-compose.yml
 tunwgs:
-  image: ghcr.io/ntnj/tunwg
+  image: ghcr.io/contextzero/tunwg
   network_mode: host  # or ports, 80,443,443/udp
   environment:
     TUNWG_RUN_SERVER: true

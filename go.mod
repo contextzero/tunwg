@@ -1,4 +1,4 @@
-module github.com/ntnj/tunwg
+module github.com/contextzero/tunwg
 
 go 1.25
 

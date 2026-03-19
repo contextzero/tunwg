@@ -32,7 +32,7 @@ jobs:
         cache-to: type=gha,mode=max
         cache-from: type=gha
         tags: |
-          ntnj/tunwg:latest
-          ntnj/tunwg:${{ steps.tag.outputs.RELEASE_NAME }}
-          ghcr.io/ntnj/tunwg:latest
-          ghcr.io/ntnj/tunwg:${{ steps.tag.outputs.RELEASE_NAME }}
+          contextzero/tunwg:latest
+          contextzero/tunwg:${{ steps.tag.outputs.RELEASE_NAME }}
+          ghcr.io/contextzero/tunwg:latest
+          ghcr.io/contextzero/tunwg:${{ steps.tag.outputs.RELEASE_NAME }}

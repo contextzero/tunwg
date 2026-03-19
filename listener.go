@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/armon/go-proxyproto"
-	"github.com/ntnj/tunwg/internal"
+	"github.com/contextzero/tunwg/internal"
 	"golang.zx2c4.com/wireguard/wgctrl/wgtypes"
 )
 

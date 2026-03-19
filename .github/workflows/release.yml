@@ -1,17 +1,30 @@
 name: Release
 
-on: workflow_dispatch
-    
+on:
+  workflow_dispatch
+  push:
+    tags: ['v*']
+
 permissions:
   contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
     - id: tag
-      run: echo "RELEASE_NAME=v$(date -u -d @$(git log -1 --format=%ct) +"%y.%m.%d")+$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      run: |
+        if [ "${{ github.event_name }}" = "push" ] && [ -n "${{ github.ref_name }}" ]; then
+          echo "RELEASE_NAME=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+        else
+          echo "RELEASE_NAME=v$(date -u -d @$(git log -1 --format=%ct) +"%y.%m.%d")+$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+        fi
     - uses: actions/setup-go@v4
       with:
         go-version-file: go.mod
